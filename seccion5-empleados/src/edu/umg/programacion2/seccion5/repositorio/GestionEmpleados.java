@@ -92,10 +92,14 @@ public class GestionEmpleados {
 	 * </ul>
 	 */
 	public double calcularNominaTotal() {
-		// TODO: completar
-		return 0.0;
-	}
+	    double total = 0.0;
 
+	    for (int i = 0; i < cantidad; i++) {
+	        total += empleados[i].calcularSalarioMensual();
+	    }
+
+	    return total;
+	}
 	/**
 	 * PREGUNTA PRÁCTICA 2 (20 pts)
 	 * <p>
@@ -120,10 +124,20 @@ public class GestionEmpleados {
 	 * </ul>
 	 */
 	public Empleado empleadoConMayorSalario() {
-		// TODO: completar
-		return null;
-	}
+	    if (cantidad == 0) {
+	        return null;
+	    }
 
+	    Empleado mayor = empleados[0];
+
+	    for (int i = 1; i < cantidad; i++) {
+	        if (empleados[i].calcularSalarioMensual() > mayor.calcularSalarioMensual()) {
+	            mayor = empleados[i];
+	        }
+	    }
+
+	    return mayor;
+	}
 	/**
 	 * PREGUNTA PRÁCTICA 3 (20 pts)
 	 * <p>
@@ -158,9 +172,37 @@ public class GestionEmpleados {
 	 * </ul>
 	 */
 	public void mostrarConteoPorTipo() {
-		// TODO: completar
-	}
+	    if (cantidad == 0) {
+	        return;
+	    }
 
+	    String[] tipos = new String[cantidad];
+	    int[] conteos = new int[cantidad];
+	    int usados = 0;
+
+	    for (int i = 0; i < cantidad; i++) {
+	        String tipo = empleados[i].getTipo();
+	        boolean encontrado = false;
+
+	        for (int j = 0; j < usados; j++) {
+	            if (tipos[j].equals(tipo)) {
+	                conteos[j]++;
+	                encontrado = true;
+	                break;
+	            }
+	        }
+
+	        if (!encontrado) {
+	            tipos[usados] = tipo;
+	            conteos[usados] = 1;
+	            usados++;
+	        }
+	    }
+
+	    for (int i = 0; i < usados; i++) {
+	        System.out.println(tipos[i] + ": " + conteos[i]);
+	    }
+	}
 	/**
 	 * RETO OPCIONAL (10 pts extra)
 	 * <p>
